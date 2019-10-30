@@ -1,0 +1,24 @@
+{
+  "name": "BomberManBR",
+  "version": "1.0.0",
+  "description": "A remake of bomber man in battle royal",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MiniJez/BomberManBR.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MiniJez/BomberManBR/issues"
+  },
+  "homepage": "https://github.com/MiniJez/BomberManBR#readme",
+  "dependencies": {
+    "http-server": "^0.11.1",
+    "phaser": "^3.20.1"
+  }
+}
