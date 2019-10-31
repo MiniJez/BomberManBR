@@ -10,26 +10,35 @@ const createPlayer = (scene, player) => {
     return player
 }
 
-const movePlayer = (player, cursors) => {
-    let x = player.x
-    let y = player.y
+const movePlayer = (player, key, bombs) => {
+    let velX = 0;
+    let velY = 0;
+    let speed = 150
 
-    if (cursors.left.isDown) {
-        x -= 5
-    }
-    
-    if (cursors.right.isDown) {
-        x += 5
-    }
-    
-    if (cursors.up.isDown) {
-        y -= 5
-    }
-    
-    if (cursors.down.isDown) {
-        y += 5
+    if (key.q.isDown || key.left.isDown) {
+        velX -= speed
     }
 
-    player.setX(x);
-    player.setY(y);
+    if (key.d.isDown || key.right.isDown) {
+        velX += speed
+    }
+
+    if (key.z.isDown || key.up.isDown) {
+        velY -= speed
+    }
+
+    if (key.s.isDown || key.down.isDown) {
+        velY += speed
+    }
+
+    player.setVelocityX(velX);
+    player.setVelocityY(velY);
+}
+
+const placeBomb = (bombs, player, key) => {
+
+    if (Phaser.Input.Keyboard.JustDown(key.space)) {
+        var bomb = bombs.create(player.x, player.y, 'bombs').setDisplaySize(16, 16)
+        bomb.refreshBody()
+    }
 }
