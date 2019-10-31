@@ -2,10 +2,11 @@ var config = {
     type: Phaser.AUTO,
     width: window.innerWidth,
     height: window.innerHeight - 4,
+    backgroundColor: "#45c85f",
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 200 }
+            gravity: { y: 0 }
         }
     },
     scene: {
@@ -17,15 +18,19 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
+var player
+var cursors
 
 function preload() {
-
+    preloadPlayer(this)
 }
 
 function create() {
-    this.cameras.main.backgroundColor.setTo(154, 208, 58);
+    cursors = this.input.keyboard.createCursorKeys();
+
+    player = createPlayer(this, player)
 }
 
 function update() {
-
+    movePlayer(player, cursors)
 }
