@@ -36,19 +36,20 @@ var isSpaceKeyAlreadyDown = false
 function preload() {
     preloadPlayer(this)
     preloadBombs(this)
+    preloadParticles(this)
 }
 
 function create() {
     cursors = this.input.keyboard.createCursorKeys();
     key = initKey(this, key)
     player = createPlayer(this, player, bombs)
-    bombs = createBombs(this, bombs, player)
-
+    bombs = createBombs(this, bombs)
+    
     this.physics.add.collider(player, bombs);
 }
 
 function update() {
     movePlayer(player, key)
-    placeBomb(bombs, player, key)
+    placeBomb(this, bombs, player, key)
     if(this.physics.collide(player, bombs)) {console.log('collide')}
 }
