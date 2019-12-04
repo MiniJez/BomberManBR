@@ -14,32 +14,50 @@ function shuffle(array) {
 }
 
 function random(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) ) + min;
-  }
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
+function corner(i, k) {
+    var corner = [[1, 1], [1, 29], [16, 1], [16, 29]]
+    var corner2 = [[1, 2], [1, 28], [16, 2], [16, 28]]
+    var corner3 = [[2, 1], [2, 29], [15, 1], [15, 29]]
+    for (let j = 0; j < corner.length; j++) {
+        if (corner[j][0] == i && corner[j][1] == k) {
+            return true
+        }
+        if (corner2[j][0] == i && corner2[j][1] == k) {
+            return true
+        }
+        if (corner3[j][0] == i && corner3[j][1] == k) {
+            return true
+        }
+    }
+}
 
-const BLOCK = 45;  
+const BLOCK = 45;
+const GRASS = 20;
+const BRICK = 46;
+
 function createMap(scene) {
     scene.cameras.main.backgroundColor.setTo(154, 208, 58);
     var level = [];
-    var isShuffle = false;
     for (let i = 0; i < 18; i++) {
         let wall = [];
         for (let k = 0; k < 31; k++) {
             if (k == 0 || k == 30 || i == 0 || i == 17) {
                 wall.push(BLOCK)
+            } else if (corner(i, k)) {
+                wall.push(GRASS)
             } else {
-                var rand = random(0,100)
-                if (rand < 55){
-                    wall.push(46)
+                var rand = random(0, 100)
+                if (rand < 55) {
+                    wall.push(BRICK)
                 } else if (rand < 60 && rand > 55) {
                     wall.push(BLOCK)
                 } else {
-                    wall.push(20)
+                    wall.push(GRASS)
                 }
-
             }
-
         }
         level.push(wall)
     }
