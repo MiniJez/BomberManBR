@@ -1,7 +1,7 @@
 var config = {
     type: Phaser.AUTO,
-    width: window.innerWidth,
-    height: window.innerHeight - 4,
+    width: 992,
+    height: 592,
     physics: {
         default: 'arcade',
         arcade: {
@@ -19,11 +19,11 @@ var config = {
 var game = new Phaser.Game(config);
 
 function preload() {
-
+    this.load.image("map-test", "src/assets/img/sprite.png");
 }
 
 function create() {
-    this.cameras.main.backgroundColor.setTo(154, 208, 58);
+    createMap(this)
 }
 
 function update() {
