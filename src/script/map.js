@@ -17,21 +17,23 @@ function random(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
   }
 
+
+const BLOCK = 45;  
 function createMap(scene) {
     scene.cameras.main.backgroundColor.setTo(154, 208, 58);
     var level = [];
     var isShuffle = false;
-    for (let i = 0; i < 37; i++) {
+    for (let i = 0; i < 18; i++) {
         let wall = [];
-        for (let k = 0; k < 62; k++) {
-            if (k == 0 || k == 61 || i == 0 || i == 36) {
-                wall.push(45)
+        for (let k = 0; k < 31; k++) {
+            if (k == 0 || k == 30 || i == 0 || i == 17) {
+                wall.push(BLOCK)
             } else {
                 var rand = random(0,100)
                 if (rand < 55){
                     wall.push(46)
-                } else if (rand < 65 && rand > 55) {
-                    wall.push(45)
+                } else if (rand < 60 && rand > 55) {
+                    wall.push(BLOCK)
                 } else {
                     wall.push(20)
                 }
@@ -41,8 +43,10 @@ function createMap(scene) {
         }
         level.push(wall)
     }
-    console.log(level)
     const map = scene.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
     const tiles = map.addTilesetImage("map-test");
-    const layer = map.createStaticLayer(0, tiles, 0, 0);
+
+    const layer = map.createStaticLayer(0, tiles, 0, 0).setScale(2);
+
+
 }

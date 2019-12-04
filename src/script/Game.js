@@ -1,7 +1,7 @@
 var config = {
     type: Phaser.AUTO,
     width: 992,
-    height: 592,
+    height: 574,
     physics: {
         default: 'arcade',
         arcade: {
@@ -40,13 +40,14 @@ function preload() {
 }
 
 function create() {
+    createMap(this)
+
     cursors = this.input.keyboard.createCursorKeys();
     key = initKey(this, key)
     player = createPlayer(this, player, bombs)
     bombs = createBombs(this, bombs)
     
     this.physics.add.collider(player, bombs);
-    createMap(this)
 }
 
 function update() {
