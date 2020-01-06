@@ -11,7 +11,6 @@ function loot(tile) {
     rand = Math.floor(Math.random() * 100)
     if (rand < 25){
         randItem = Math.floor(Math.random() * 100)
-        console.log(randItem)
         if (randItem < 40) map.removeTile(tile, 196)
         if (randItem > 40 && randItem < 70) map.removeTile(tile, 197)
         if (randItem > 70) map.removeTile(tile, 198)

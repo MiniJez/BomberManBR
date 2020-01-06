@@ -48,6 +48,18 @@ function create() {
     player = createPlayer(this, player, bombs)
     bombs = createBombs(this, bombs)
     map.setCollision([ 45, 46 ]);
+    map.setTileIndexCallback([ 196, 197, 198 ], function (sprite, tile) {
+        console.log(tile)
+        if(tile.index == 196){
+            map.removeTile(tile, 20)
+        }
+        if(tile.index == 197){
+            map.removeTile(tile, 20)
+        }
+        if(tile.index == 198){
+            map.removeTile(tile, 20)
+        }
+    });
     this.physics.add.existing(player);
     this.physics.add.collider(player, layer);
     this.physics.add.collider(player, bombs);
