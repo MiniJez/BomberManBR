@@ -32,6 +32,7 @@ var key = {
 var bombs
 var isSpaceKeyAlreadyDown = false
 var map
+var layer
 
 function preload() {
     preloadPlayer(this)
@@ -41,13 +42,21 @@ function preload() {
 }
 
 function create() {
-    map = createMap(this)
-
+    [map, layer] = createMap(this)
     cursors = this.input.keyboard.createCursorKeys();
     key = initKey(this, key)
     player = createPlayer(this, player, bombs)
     bombs = createBombs(this, bombs)
     
+    console.log(map)
+    console.log(layer)
+    map.setCollision([ 45, 46 ]);
+    console.log(1)
+    this.physics.add.existing(player);
+    console.log(2)
+    this.physics.add.collider(player, layer);
+    console.log(3)
+
     this.physics.add.collider(player, bombs);
 }
 

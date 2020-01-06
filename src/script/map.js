@@ -66,5 +66,5 @@ function createMap(scene) {
 
     const layer = map.createDynamicLayer(0, tiles, 0, 0).setScale(2);
 
-    return map
+    return [map, layer]
 }
