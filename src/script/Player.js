@@ -17,43 +17,44 @@ const createPlayer = (scene) => {
     return [player1, player2]
 }
 
-const movePlayer = (player1, player2, key) => {
+const movePlayer = (player1, player2, key, bonusMS) => {
     let velX1 = 0;
     let velY1 = 0;
     let velX2 = 0;
     let velY2 = 0;
-    let speed = PLAYER_SPEED
+    let speedp1 = PLAYER_SPEED + bonusMS_player1
+    let speedp2 = PLAYER_SPEED + bonusMS_player2
 
     if (key.q.isDown) {
-        velX1 -= speed
+        velX1 -= speedp1
     }
 
     if (key.d.isDown) {
-        velX1 += speed
+        velX1 += speedp1
     }
 
     if (key.z.isDown) {
-        velY1 -= speed
+        velY1 -= speedp1
     }
 
     if (key.s.isDown) {
-        velY1 += speed
+        velY1 += speedp1
     }
 
     if (key.left.isDown) {
-        velX2 -= speed
+        velX2 -= speedp2
     }
 
     if (key.right.isDown) {
-        velX2 += speed
+        velX2 += speedp2
     }
 
     if (key.up.isDown) {
-        velY2 -= speed
+        velY2 -= speedp2
     }
 
     if (key.down.isDown) {
-        velY2 += speed
+        velY2 += speedp2
     }
 
     if(velX1 !== 0 && velY1 !== 0){

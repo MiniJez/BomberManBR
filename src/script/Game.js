@@ -34,6 +34,8 @@ var isSpaceKeyAlreadyDown = false
 var map
 var layer
 var isDeadP1, isDeadP2 = false
+var bonusMS_player1 = 0
+var bonusMS_player2 = 0
 
 function preload() {
     preloadPlayer(this)
@@ -53,14 +55,14 @@ function create() {
 
     map.setCollision([ 45, 46 ]);
     this.physics.add.existing(player1);
-    //this.physics.add.existing(player2);
     this.physics.add.collider(player1, layer);
     this.physics.add.collider(player2, layer);
     this.physics.add.collider(player1, bombs);
     this.physics.add.collider(player2, bombs);
-    //this.physics.add.collider(player1, player2);
     map.setTileIndexCallback([ 196, 197, 198 ], function (sprite, tile) {
         console.log(tile)
+        console.log(sprite == player1)
+
         if(tile.index == 196){
             map.removeTile(tile, 20)
         }
@@ -68,13 +70,15 @@ function create() {
             map.removeTile(tile, 20)
         }
         if(tile.index == 198){
+            if (sprite == player1) bonusMS_player1 += 50
+            if (sprite == player2) bonusMS_player2 += 50
             map.removeTile(tile, 20)
         }
     });
 }
 
 function update() {
-    movePlayer(player1, player2, key)
+    movePlayer(player1, player2, key, bonusMS_player1, bonusMS_player2)
     placeBomb(this, bombs, player1, player2, key, map)
 
     if(isDeadP1) {
