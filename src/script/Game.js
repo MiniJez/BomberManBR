@@ -33,6 +33,7 @@ var bombs
 var isSpaceKeyAlreadyDown = false
 var map
 var layer
+var isDead = false
 
 function preload() {
     preloadPlayer(this)
@@ -47,6 +48,7 @@ function create() {
     key = initKey(this, key)
     player = createPlayer(this, player, bombs)
     bombs = createBombs(this, bombs)
+    
     map.setCollision([ 45, 46 ]);
     this.physics.add.existing(player);
     this.physics.add.collider(player, layer);
@@ -54,7 +56,10 @@ function create() {
 }
 
 function update() {
-    movePlayer(player, key)
-    placeBomb(this, bombs, player, key, map)
-    if(this.physics.collide(player, bombs)) {console.log('collide')}
+    if(!isDead) {
+        movePlayer(player, key)
+        placeBomb(this, bombs, player, key, map)
+    } else {
+        player.destroy()
+    }
 }

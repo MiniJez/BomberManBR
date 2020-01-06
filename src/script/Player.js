@@ -1,6 +1,4 @@
-const PLAYER_SIZE = 26
-const BOMB_SIZE = 26;
-const PLAYER_SPEED = 200;
+var canPlaceBomb = true
 
 const preloadPlayer = (scene) => {
     scene.load.image('player', 'src/assets/img/blue_square.png');
@@ -45,10 +43,11 @@ const movePlayer = (player, key, bombs) => {
 }
 
 const placeBomb = (scene, bombs, player, key, map) => {
-    if (Phaser.Input.Keyboard.JustDown(key.space)) {
+    if (Phaser.Input.Keyboard.JustDown(key.space) && canPlaceBomb) {
+        canPlaceBomb = false
         let pos = snapToGrid({x: player.x, y: player.y})
         var bomb = bombs.create(pos.x, pos.y, 'bombs').setDisplaySize(BOMB_SIZE, BOMB_SIZE)
         bomb.refreshBody()
-        scene.time.delayedCall(3000, () => bombExplose(scene, bombs, bomb, map), null, scene)
+        scene.time.delayedCall(1000, () => bombExplose(scene, bombs, bomb, map, player), null, scene)
     }
 }
