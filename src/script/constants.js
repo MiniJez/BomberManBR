@@ -1,0 +1,4 @@
+const PLAYER_SIZE = 26
+const BOMB_SIZE = 26;
+const PLAYER_SPEED = 200;
+const TILE_SIZE = 32
