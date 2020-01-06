@@ -11,3 +11,12 @@ const initKey = (scene, key) => {
 
     return key
 }
+
+const snapToGrid = ({ x, y }) => {
+    let gridCubeWidth = 32, gridCubeHeight = 32;
+
+    let posx = Math.round((x-16) / gridCubeWidth) * gridCubeWidth + 16;
+    let posy = Math.round((y-16) / gridCubeHeight) * gridCubeHeight + 16;
+
+    return {x: posx, y: posy}
+}

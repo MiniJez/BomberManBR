@@ -52,6 +52,6 @@ function create() {
 
 function update() {
     movePlayer(player, key)
-    placeBomb(this, bombs, player, key)
+    placeBomb(this, bombs, player, key, map)
     if(this.physics.collide(player, bombs)) {console.log('collide')}
 }
