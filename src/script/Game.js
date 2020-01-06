@@ -59,6 +59,18 @@ function create() {
     this.physics.add.collider(player1, bombs);
     this.physics.add.collider(player2, bombs);
     //this.physics.add.collider(player1, player2);
+    map.setTileIndexCallback([ 196, 197, 198 ], function (sprite, tile) {
+        console.log(tile)
+        if(tile.index == 196){
+            map.removeTile(tile, 20)
+        }
+        if(tile.index == 197){
+            map.removeTile(tile, 20)
+        }
+        if(tile.index == 198){
+            map.removeTile(tile, 20)
+        }
+    });
 }
 
 function update() {
