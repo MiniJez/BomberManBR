@@ -64,7 +64,7 @@ function createMap(scene) {
     const map = scene.make.tilemap({ data: level, tileWidth: 16, tileHeight: 16 });
     const tiles = map.addTilesetImage("map-test");
 
-    const layer = map.createStaticLayer(0, tiles, 0, 0).setScale(2);
+    const layer = map.createDynamicLayer(0, tiles, 0, 0).setScale(2);
 
-
+    return map
 }

@@ -31,6 +31,7 @@ var key = {
 }
 var bombs
 var isSpaceKeyAlreadyDown = false
+var map
 
 function preload() {
     preloadPlayer(this)
@@ -40,7 +41,7 @@ function preload() {
 }
 
 function create() {
-    createMap(this)
+    map = createMap(this)
 
     cursors = this.input.keyboard.createCursorKeys();
     key = initKey(this, key)

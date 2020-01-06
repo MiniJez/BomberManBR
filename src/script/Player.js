@@ -45,7 +45,6 @@ const movePlayer = (player, key, bombs) => {
 }
 
 const placeBomb = (scene, bombs, player, key, map) => {
-
     if (Phaser.Input.Keyboard.JustDown(key.space)) {
         let pos = snapToGrid({x: player.x, y: player.y})
         var bomb = bombs.create(pos.x, pos.y, 'bombs').setDisplaySize(BOMB_SIZE, BOMB_SIZE)

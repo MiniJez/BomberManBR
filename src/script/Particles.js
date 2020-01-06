@@ -9,11 +9,11 @@ const creatBombParticles = (scene, bomb) => {
         frame: 'yellow',
         x: bomb.x,
         y: bomb.y,
-        lifespan: 500,
+        lifespan: 130,
         speed: { min: 200, max: 400 },
         angle: 0,
         gravityY: 0,
-        scale: { start: 0.2, end: 0 },
+        scale: { start: 0.2, end: 0.2 },
         quantity: 1,
         blendMode: 'ADD'
     });
@@ -22,11 +22,11 @@ const creatBombParticles = (scene, bomb) => {
         frame: 'yellow',
         x: bomb.x,
         y: bomb.y,
-        lifespan: 500,
+        lifespan: 130,
         speed: { min: 200, max: 400 },
         angle: 90,
         gravityY: 0,
-        scale: { start: 0.2, end: 0 },
+        scale: { start: 0.2, end: 0.2 },
         quantity: 1,
         blendMode: 'ADD'
     });
@@ -35,11 +35,11 @@ const creatBombParticles = (scene, bomb) => {
         frame: 'yellow',
         x: bomb.x,
         y: bomb.y,
-        lifespan: 500,
+        lifespan: 130,
         speed: { min: 200, max: 400 },
         angle: 180,
         gravityY: 0,
-        scale: { start: 0.2, end: 0 },
+        scale: { start: 0.2, end: 0.2 },
         quantity: 1,
         blendMode: 'ADD'
     });
@@ -48,11 +48,11 @@ const creatBombParticles = (scene, bomb) => {
         frame: 'yellow',
         x: bomb.x,
         y: bomb.y,
-        lifespan: 500,
+        lifespan: 130,
         speed: { min: 200, max: 400 },
         angle: 270,
         gravityY: 0,
-        scale: { start: 0.2, end: 0 },
+        scale: { start: 0.2, end: 0.2 },
         quantity: 1,
         blendMode: 'ADD'
     });
