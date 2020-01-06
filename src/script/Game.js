@@ -17,7 +17,7 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
-var player
+var player1, player2
 var key = {
     z: null,
     q: null,
@@ -33,7 +33,7 @@ var bombs
 var isSpaceKeyAlreadyDown = false
 var map
 var layer
-var isDead = false
+var isDeadP1, isDeadP2 = false
 
 function preload() {
     preloadPlayer(this)
@@ -46,20 +46,30 @@ function create() {
     [map, layer] = createMap(this)
     cursors = this.input.keyboard.createCursorKeys();
     key = initKey(this, key)
-    player = createPlayer(this, player, bombs)
-    bombs = createBombs(this, bombs)
-    
+    var [p1, p2] = createPlayer(this)
+    player1 = p1
+    player2 = p2
+    bombs = createBombs(this)
+
     map.setCollision([ 45, 46 ]);
-    this.physics.add.existing(player);
-    this.physics.add.collider(player, layer);
-    this.physics.add.collider(player, bombs);
+    this.physics.add.existing(player1);
+    //this.physics.add.existing(player2);
+    this.physics.add.collider(player1, layer);
+    this.physics.add.collider(player2, layer);
+    this.physics.add.collider(player1, bombs);
+    this.physics.add.collider(player2, bombs);
+    //this.physics.add.collider(player1, player2);
 }
 
 function update() {
-    if(!isDead) {
-        movePlayer(player, key)
-        placeBomb(this, bombs, player, key, map)
-    } else {
-        player.destroy()
+    movePlayer(player1, player2, key)
+    placeBomb(this, bombs, player1, player2, key, map)
+
+    if(isDeadP1) {
+        player1.setVisible(false)
+    }
+    
+    if(isDeadP2) {
+        player2.setVisible(false)
     }
 }
