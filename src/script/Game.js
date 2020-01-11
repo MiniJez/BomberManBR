@@ -36,6 +36,10 @@ var layer
 var isDeadP1, isDeadP2 = false
 var bonusMS_player1 = 0
 var bonusMS_player2 = 0
+var bonusAddBomb_player1 = 0
+var bonusAddBomb_player2 = 0
+var bonusBombRange_player1 = 0
+var bonusBombRange_player2 = 0
 
 function preload() {
     preloadPlayer(this)
@@ -60,18 +64,22 @@ function create() {
     this.physics.add.collider(player1, bombs);
     this.physics.add.collider(player2, bombs);
     map.setTileIndexCallback([ 196, 197, 198 ], function (sprite, tile) {
-        console.log(tile)
-        console.log(sprite == player1)
-
         if(tile.index == 196){
+            // Bonus add bomb
+            if (sprite == player1) bonusAddBomb_player1 += 1
+            if (sprite == player2) bonusAddBomb_player2 += 1
             map.removeTile(tile, 20)
         }
         if(tile.index == 197){
+            // Bonus bomb range
+            if (sprite == player1) bonusBombRange_player1 += 1
+            if (sprite == player2) bonusBombRange_player2 += 1
             map.removeTile(tile, 20)
         }
         if(tile.index == 198){
-            if (sprite == player1) bonusMS_player1 += 50
-            if (sprite == player2) bonusMS_player2 += 50
+            // Bonus MoveSpeed
+            if (sprite == player1 && bonusMS_player1 < 150) bonusMS_player1 += 25
+            if (sprite == player2 && bonusMS_player2 < 150) bonusMS_player2 += 25
             map.removeTile(tile, 20)
         }
     });

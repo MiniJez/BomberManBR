@@ -1,5 +1,7 @@
 var p1CanPlaceBomb = true
 var p2CanPlaceBomb = true
+var p1CompteurBombe = 0
+var p2CompteurBombe = 0
 
 const preloadPlayer = (scene) => {
     scene.load.image('player1', 'src/assets/img/blue_square.png');
@@ -17,7 +19,7 @@ const createPlayer = (scene) => {
     return [player1, player2]
 }
 
-const movePlayer = (player1, player2, key, bonusMS) => {
+const movePlayer = (player1, player2, key, bonusMS_player1, bonusMS_player2) => {
     let velX1 = 0;
     let velY1 = 0;
     let velX2 = 0;
@@ -74,20 +76,21 @@ const movePlayer = (player1, player2, key, bonusMS) => {
     player2.setVelocityY(velY2);
 }
 
+
 const placeBomb = (scene, bombs, player1, player2, key, map) => {
-    if (Phaser.Input.Keyboard.JustDown(key.space) && p1CanPlaceBomb && player1.visible) {
-        p1CanPlaceBomb = false
+    if (Phaser.Input.Keyboard.JustDown(key.space) && p1CompteurBombe <= 0 + bonusAddBomb_player1 && player1.visible) {
         let pos = snapToGrid({x: player1.x, y: player1.y})
         var bomb = bombs.create(pos.x, pos.y, 'bombs').setDisplaySize(BOMB_SIZE, BOMB_SIZE)
+        p1CompteurBombe += 1
         bomb.refreshBody()
-        scene.time.delayedCall(1000, () => bombExplose(scene, bombs, bomb, map, player1, 'player1'), null, scene)
+        scene.time.delayedCall(1000, () => bombExplose(scene, bombs, bomb, map, player1, player2, 'player1', bonusBombRange_player1), null, scene)
     }
 
-    if (Phaser.Input.Keyboard.JustDown(key.plus) && p2CanPlaceBomb && player2.visible) {
-        p2CanPlaceBomb = false
+    if (Phaser.Input.Keyboard.JustDown(key.plus) && p2CompteurBombe <= 0 + bonusAddBomb_player2 && player2.visible) {
         let pos = snapToGrid({x: player2.x, y: player2.y})
         var bomb = bombs.create(pos.x, pos.y, 'bombs').setDisplaySize(BOMB_SIZE, BOMB_SIZE)
+        p2CompteurBombe += 1
         bomb.refreshBody()
-        scene.time.delayedCall(1000, () => bombExplose(scene, bombs, bomb, map, player2, 'player2'), null, scene)
+        scene.time.delayedCall(1000, () => bombExplose(scene, bombs, bomb, map, player1, player2, 'player2', bonusBombRange_player2), null, scene)
     }
 }

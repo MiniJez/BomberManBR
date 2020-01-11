@@ -7,10 +7,34 @@ const createBombs = (scene) => {
     return bombs
 }
 
+function playerIsDead(player, bomb, bonusBombRange){
+    for (var i = 0; i <= bonusBombRange+1; i++){
+
+        // left
+        if((player.x < bomb.x && player.x > bomb.x - (28 + 32*i)) && (player.y > bomb.y - 28 && player.y < bomb.y + 28)) {
+            return true
+        // right
+        } else if((player.x > bomb.x && player.x < bomb.x + (28 + 32*i)) && (player.y > bomb.y - 28 && player.y < bomb.y + 28)) {
+            return true
+        // bot
+        } else if((player.y > bomb.y && player.y < bomb.y + (28 + 32*i)) && (player.x > bomb.x - 28 && player.x < bomb.x + 28)) {
+            return true
+        // top
+        } else if((player.y < bomb.y && player.y > bomb.y - (28 + 32*i)) && (player.x > bomb.x - 28 && player.x < bomb.x + 28)) {
+            return true
+        // on 
+        } else if(player.y == bomb.y && player.x == bomb.x) {
+            return true
+        }
+    }
+
+    return false
+}
+
 function loot(tile) {
-    rand = Math.floor(Math.random() * 100)
+    let rand = Math.floor(Math.random() * 100)
     if (rand < 25){
-        randItem = Math.floor(Math.random() * 100)
+        let randItem = Math.floor(Math.random() * 100)
         if (randItem < 40) map.removeTile(tile, 196)
         if (randItem > 70) map.removeTile(tile, 198)
         if (randItem > 40 && randItem < 70) map.removeTile(tile, 197)
@@ -19,38 +43,60 @@ function loot(tile) {
     }
 }
 
-const bombExplose = (scene, bombs, bomb, map, player, playerType) => {
-    tilesTop = map.getTilesWithinWorldXY(bomb.x - (TILE_SIZE / 2), bomb.y - (TILE_SIZE + (TILE_SIZE / 2)), TILE_SIZE, TILE_SIZE)
-    tilesRight = map.getTilesWithinWorldXY(bomb.x + (TILE_SIZE / 2), bomb.y - (TILE_SIZE / 2), TILE_SIZE, TILE_SIZE)
-    tilesBot = map.getTilesWithinWorldXY(bomb.x - (TILE_SIZE / 2), bomb.y + (TILE_SIZE / 2), TILE_SIZE, TILE_SIZE)
-    tilesLeft = map.getTilesWithinWorldXY(bomb.x - (TILE_SIZE + (TILE_SIZE / 2)), bomb.y - (TILE_SIZE / 2), TILE_SIZE, TILE_SIZE)
+const bombExplose = (scene, bombs, bomb, map, player1, player2, playerType, bonusBombRange) => {
+    creatBombParticles(scene, bomb, bonusBombRange)
 
-    tilesTop[0].index == 46 ? loot(tilesTop) : null
-    tilesBot[0].index == 46 ? loot(tilesBot) : null
-    tilesLeft[0].index == 46 ? loot(tilesLeft) : null
-    tilesRight[0].index == 46 ? loot(tilesRight) : null
-
-    isDead = false
-    if((player.x < bomb.x && player.x > bomb.x - 60) && (player.y > bomb.y - 28 && player.y < bomb.y + 28)) {
-        isDead = true
-    } else if((player.x > bomb.x && player.x < bomb.x + 60) && (player.y > bomb.y - 28 && player.y < bomb.y + 28)) {
-        isDead = true
-    } else if((player.y > bomb.y && player.y < bomb.y + 60) && (player.x > bomb.x - 28 && player.x < bomb.x + 28)) {
-        isDead = true
-    } else if((player.y < bomb.y && player.y > bomb.y - 60) && (player.x > bomb.x - 28 && player.x < bomb.x + 28)) {
-        isDead = true
-    } else if(player.y == bomb.y && player.x == bomb.x) {
-        isDead = true
+    for(var i = 1; i <= bonusBombRange+1; i++){
+        tilesTop = map.getTilesWithinWorldXY(bomb.x - (TILE_SIZE / 2) , bomb.y - (TILE_SIZE * i + (TILE_SIZE / 2) ), TILE_SIZE, TILE_SIZE)
+        if (tilesTop[0].index == 45){
+            break
+        }
+        if (tilesTop[0].index == 46){
+            loot(tilesTop)
+            break
+        }
+    }
+    for(var i = 1; i <= bonusBombRange+1; i++){
+        tilesRight = map.getTilesWithinWorldXY(bomb.x + (TILE_SIZE / 2) + TILE_SIZE * (i-1), bomb.y - (TILE_SIZE / 2), TILE_SIZE, TILE_SIZE)
+        if (tilesRight[0].index == 45){
+            break
+        }
+        if (tilesRight[0].index == 46){
+            loot(tilesRight)
+            break
+        }
+    }
+    for(var i = 1; i <= bonusBombRange+1; i++){
+        tilesBot = map.getTilesWithinWorldXY(bomb.x - (TILE_SIZE / 2), bomb.y + (TILE_SIZE / 2)  + TILE_SIZE * (i-1), TILE_SIZE, TILE_SIZE)
+        if (tilesBot[0].index == 45){
+            break
+        }
+        if (tilesBot[0].index == 46){
+            loot(tilesBot)
+            break
+        }
+    }
+    for(var i = 1; i <= bonusBombRange+1; i++){
+        tilesLeft = map.getTilesWithinWorldXY(bomb.x - (TILE_SIZE * i + (TILE_SIZE / 2)), bomb.y - (TILE_SIZE / 2), TILE_SIZE, TILE_SIZE)
+        if (tilesLeft[0].index == 45){
+            break
+        }
+        if (tilesLeft[0].index == 46){
+            loot(tilesLeft)
+            break
+        }
     }
 
+
+    isDeadP1 = playerIsDead(player1, bomb, bonusBombRange)
+    isDeadP2 = playerIsDead(player2, bomb, bonusBombRange)
+    
     if(playerType == 'player1') {
-        isDeadP1 = isDead
-        p1CanPlaceBomb = true
+        p1CompteurBombe -= 1
     } else {
-        isDeadP2 = isDead
-        p2CanPlaceBomb = true
+        p2CompteurBombe -= 1
     }
 
+    
     bombs.remove(bomb, true);
-    creatBombParticles(scene, bomb)
 }

@@ -8,7 +8,7 @@ const initKey = (scene, key) => {
     key.down = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
     key.right = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
     key.space = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-    key.plus = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.NUMPAD_NINE);
+    key.plus = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
 
     return key
 }
