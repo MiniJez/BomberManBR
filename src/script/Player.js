@@ -112,7 +112,7 @@ const placeBomb = (scene, bombs, player1, player2, key, map) => {
         bombs.playAnimation('bomb_explose')
     }
 
-    if (Phaser.Input.Keyboard.JustDown(key.plus) && p2CompteurBombe <= 0 + bonusAddBomb_player2 && player2.visible) {
+    if ((Phaser.Input.Keyboard.JustDown(key.five) || Phaser.Input.Keyboard.JustDown(key.p)) && p2CompteurBombe <= 0 + bonusAddBomb_player2 && player2.visible) {
         let pos = snapToGrid({x: player2.x, y: player2.y})
         var bomb = bombs.create(pos.x, pos.y, 'bombs').setDisplaySize(BOMB_SIZE, BOMB_SIZE)
         p2CompteurBombe += 1
