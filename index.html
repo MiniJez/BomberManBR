@@ -15,9 +15,28 @@
 </head>
 
 <body>
-    <div id="bomberMan"></div>
-    <p id="endGame"></p>
-    <button id='restart'>RESTART</button>
+    <div id="bomberMan" style="margin-left: 25px; margin-top: 25px;"></div>
+    
+    <h1 id="endGame" style="color: red; margin-left: 400px;"></h1>
+
+    <div style="margin-left: 467px;">
+        <button id='restart' style="width: 100px;">RESTART</button>
+    </div>
+
+    <div style="margin-left: 50px;">
+        <p><strong> Touches Player 1 : </strong></p>
+        <ul>
+            <li>Mouvement : Z / Q / S / D</li>
+            <li>Poser une bombe : ESPACE</li>
+        </ul>
+
+        <p><strong> Touches Player 2 : </strong></p>
+        <ul>
+            <li>Mouvement : Arrow_up / Arrow_left / Arrow_down / Arrow_right /</li>
+            <li>Poser une bombe : Numpad_5</li>
+        </ul>
+    </div>
+    
 
     <script>
         document.getElementById('restart').onclick = () => {

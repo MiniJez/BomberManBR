@@ -64,7 +64,6 @@ function loot(tile) {
 const bombExplose = (scene, bombs, bomb, map, player1, player2, playerType, bonusBombRange) => {
     creatBombParticles(scene, bomb, bonusBombRange)
 
-    //up, right, down, left = index 0, 1, 2, 3
     bonusUntilBlock = [1, 1, 1, 1]
 
 
