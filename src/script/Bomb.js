@@ -1,9 +1,20 @@
 const preloadBombs = (scene) => {
-    scene.load.image('bombs', 'src/assets/img/red_square.png');
+    scene.load.spritesheet('bombs', 
+        'src/assets/img/bombs.png',
+        { frameWidth: 16, frameHeight: 16 }
+    );
 }
 
 const createBombs = (scene) => {
     var bombs = scene.physics.add.staticGroup();
+
+    scene.anims.create({
+        key: 'bomb_explose',
+        frames: scene.anims.generateFrameNumbers('bombs', { start: 2, end: 0 }),
+        frameRate: 3,
+        repeat: -1
+    });
+
     return bombs
 }
 

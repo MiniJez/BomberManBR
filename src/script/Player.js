@@ -4,17 +4,38 @@ var p1CompteurBombe = 0
 var p2CompteurBombe = 0
 
 const preloadPlayer = (scene) => {
-    scene.load.image('player1', 'src/assets/img/blue_square.png');
-    scene.load.image('player2', 'src/assets/img/pink-square.jpg');
+    scene.load.spritesheet('player1', 
+        'src/assets/img/perso1.png',
+        { frameWidth: 16, frameHeight: 16 }
+    );
+    scene.load.spritesheet('player2', 
+        'src/assets/img/perso2.png',
+        { frameWidth: 16, frameHeight: 16 }
+    );
 }
 
 const createPlayer = (scene) => {
     var player1 = scene.physics.add.sprite(48, 48, 'player1');
     var player2 = scene.physics.add.sprite(945, 48, 'player2');
+
     player1.setCollideWorldBounds(true);
     player2.setCollideWorldBounds(true);
     player1.setDisplaySize(PLAYER_SIZE, PLAYER_SIZE)
     player2.setDisplaySize(PLAYER_SIZE, PLAYER_SIZE)
+
+    scene.anims.create({
+        key: 'p1_idle',
+        frames: scene.anims.generateFrameNumbers('player1', { start: 4, end: 4 }),
+        frameRate: 1,
+        repeat: -1
+    });
+
+    scene.anims.create({
+        key: 'p2_idle',
+        frames: scene.anims.generateFrameNumbers('player2', { start: 4, end: 4 }),
+        frameRate: 1,
+        repeat: -1
+    });
 
     return [player1, player2]
 }
@@ -33,6 +54,7 @@ const movePlayer = (player1, player2, key, bonusMS_player1, bonusMS_player2) => 
 
     if (key.d.isDown) {
         velX1 += speedp1
+
     }
 
     if (key.z.isDown) {
@@ -69,6 +91,9 @@ const movePlayer = (player1, player2, key, bonusMS_player1, bonusMS_player2) => 
         velX2 = velX2 / 1.5
     }
 
+    player1.play('p1_idle');
+    player2.play('p2_idle');
+
     player1.setVelocityX(velX1);
     player1.setVelocityY(velY1);
 
@@ -84,6 +109,7 @@ const placeBomb = (scene, bombs, player1, player2, key, map) => {
         p1CompteurBombe += 1
         bomb.refreshBody()
         scene.time.delayedCall(1000, () => bombExplose(scene, bombs, bomb, map, player1, player2, 'player1', bonusBombRange_player1), null, scene)
+        bombs.playAnimation('bomb_explose')
     }
 
     if (Phaser.Input.Keyboard.JustDown(key.plus) && p2CompteurBombe <= 0 + bonusAddBomb_player2 && player2.visible) {
@@ -92,5 +118,6 @@ const placeBomb = (scene, bombs, player1, player2, key, map) => {
         p2CompteurBombe += 1
         bomb.refreshBody()
         scene.time.delayedCall(1000, () => bombExplose(scene, bombs, bomb, map, player1, player2, 'player2', bonusBombRange_player2), null, scene)
+        bombs.playAnimation('bomb_explose')
     }
 }

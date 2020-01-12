@@ -83,6 +83,13 @@ function create() {
             map.removeTile(tile, 20)
         }
     });
+
+    this.anims.create({
+        key: 'bomb_explose',
+        frames: this.anims.generateFrameNumbers('bombs', { start: 0, end: 2 }),
+        frameRate: 10,
+        repeat: -1
+    });
 }
 
 function update() {
@@ -91,9 +98,11 @@ function update() {
 
     if(isDeadP1) {
         player1.setVisible(false)
+        document.getElementById('endGame').innerHTML = "Player 2 Gagne !"
     }
     
     if(isDeadP2) {
         player2.setVisible(false)
+        document.getElementById('endGame').innerHTML = "Player 1 Gagne !"
     }
 }
