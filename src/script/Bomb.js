@@ -109,8 +109,6 @@ const bombExplose = (scene, bombs, bomb, map, player1, player2, playerType, bonu
         }
     }
 
-    console.log(bonusUntilBlock, bonusBombRange)
-
 
     isDeadP1 = playerIsDead(player1, bomb, bonusUntilBlock, bonusBombRange)
     isDeadP2 = playerIsDead(player2, bomb, bonusUntilBlock, bonusBombRange)
