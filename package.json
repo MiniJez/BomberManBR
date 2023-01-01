@@ -19,6 +19,6 @@
   "homepage": "https://github.com/MiniJez/BomberManBR#readme",
   "dependencies": {
     "http-server": "^0.11.1",
-    "phaser": "^3.20.1"
+    "phaser": "^3.55.2"
   }
 }
